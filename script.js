@@ -2,17 +2,19 @@
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
 
-mobileMenuButton.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-});
-
-// Close mobile menu when clicking on a link
-const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-mobileMenuLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
+if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
     });
-});
+
+    // Close mobile menu when clicking on a link
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+}
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -170,11 +172,21 @@ window.addEventListener('load', () => {
 
 window.addEventListener('scroll', toggleScrollToTopButton);
 
-// Add parallax effect to hero section
+// Add parallax effect to hero section with throttling
+let ticking = false;
+
 window.addEventListener('scroll', () => {
-    const heroSection = document.getElementById('home');
-    const scrollPosition = window.scrollY;
-    heroSection.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const heroSection = document.getElementById('home');
+            if (heroSection) {
+                const scrollPosition = window.scrollY;
+                heroSection.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+            }
+            ticking = false;
+        });
+        ticking = true;
+    }
 });
 
 // Typing effect for hero title (optional enhancement)
