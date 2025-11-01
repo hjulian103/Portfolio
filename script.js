@@ -34,22 +34,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Contact Form Handler
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
-    // Here you would typically send the form data to a backend service
-    // For now, we'll just log it and show an alert
-    console.log('Form submitted:', { name, email, message });
-    
-    alert('Thank you for your message! I will get back to you soon.');
-    
-    // Reset form
-    contactForm.reset();
-});
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // Here you would typically send the form data to a backend service
+        // For now, we'll just log it and show an alert
+        console.log('Form submitted:', { name, email, message });
+        
+        alert('Thank you for your message! I will get back to you soon.');
+        
+        // Reset form
+        contactForm.reset();
+    });
+}
 
 // Navbar Background on Scroll
 window.addEventListener('scroll', () => {
